@@ -1,0 +1,68 @@
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Practice</title>
+   </head>
+   <body>
+      <script>
+         let playerInput = prompt("Rock, Paper, or Scissors?");
+         function computerPlay() {
+            let result = Math.random();
+            if (result <= 0.3) {
+               return "rock";
+            }
+            else if (result <= 0.6) {
+               return "paper";
+            }
+            else {
+               return "scissors";
+            }
+         }
+
+         function playRound(playerSelection, computerSelection) {
+            //You chose rock scenario
+            if (playerSelection.toLowerCase() === "rock" && computerSelection === "paper")
+               return "You Lose! Paper beats Rock";
+            else if (playerSelection.toLowerCase() === "rock" && computerSelection === "rock")
+               return "Tie! Rock n Rock";
+            else if (playerSelection.toLowerCase() === "rock" && computerSelection === "scissors")
+               return "You Win! Rock beats Scissors";
+            //You chose paper scenario
+            if (playerSelection.toLowerCase() === "paper" && computerSelection === "scissors")
+               return "You Lose! Scissors beats Paper";
+            else if (playerSelection.toLowerCase() === "paper" && computerSelection === "paper")
+               return "Tie! Paper n Paper";
+            else if (playerSelection.toLowerCase() === "paper" && computerSelection === "rock")
+               return "You Win! Paper beats Rock";
+            //You chose scissors scnario
+            if (playerSelection.toLowerCase() === "scissors" && computerSelection === "rock")
+               return "You Lose! Rock beats Scissors";
+            else if (playerSelection.toLowerCase() === "paper" && computerSelection === "scissors")
+               return "Tie! Scissors n Scissors";
+            else if (playerSelection.toLowerCase() === "paper" && computerSelection === "paper")
+               return "You Win! Scissors beats Paper";
+         }
+
+         function game() {
+            let playerCount = 0;
+            let computerCount = 0;
+            for (let i = 0; i <= 5; i++) {
+               let resultString = playRound(playerInput, computerPlay());
+               if (resultString.charAt(4) === 'L') {
+                  playerCount++;
+               }
+               else if (resultString.charAt(4) === 'W') {
+                  computerCount++;
+               }
+            }
+            if(playerCount > computerCount)
+               return "You won! Player: " + playerCount + " Computer: " + computerCount;
+            else if(playerCount < computerCount)
+               return "You lost. Player: " + playerCount + " Computer: " + computerCount;
+            else
+               return "Tied! Player: " + playerCount + " Computer: " + computerCount;
+         }
+         console.log(game());
+      </script>
+   </body>
+</html>

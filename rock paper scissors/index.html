@@ -1,0 +1,100 @@
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Practice</title>
+   </head>
+   <body>
+      <div id="score"></div>
+      <div>
+         <button class="btn">Rock</button>
+         <button class="btn">Paper</button>
+         <button class="btn">Scissors</button>
+      </div>
+      <div id="results"></div>
+      <script>
+         function computerPlay() {
+            let result = Math.random();
+            if (result <= 0.33) {
+               return "Rock";
+            }
+            else if (result <= 0.66) {
+               return "Paper";
+            }
+            else {
+               return "Scissors";
+            }
+         }
+
+         function playRound(playerSelection, computerSelection) {
+            //You chose rock scenario
+            if (playerSelection === "Rock" && computerSelection === "Paper")
+               return "You Lose! Paper beats Rock";
+            else if (playerSelection === "Rock" && computerSelection === "Rock")
+               return "Tie! Rock n Rock";
+            else if (playerSelection === "Rock" && computerSelection === "Scissors")
+               return "You Win! Rock beats Scissors";
+            //You chose paper scenario
+            if (playerSelection === "Paper" && computerSelection === "Scissors")
+               return "You Lose! Scissors beats Paper";
+            else if (playerSelection === "Paper" && computerSelection === "Paper")
+               return "Tie! Paper n Paper";
+            else if (playerSelection === "Paper" && computerSelection === "Rock")
+               return "You Win! Paper beats Rock";
+            //You chose scissors scenario
+            if (playerSelection === "Scissors" && computerSelection === "Rock")
+               return "You Lose! Rock beats Scissors";
+            else if (playerSelection === "Scissors" && computerSelection === "Scissors")
+               return "Tie! Scissors n Scissors";
+            else if (playerSelection === "Scissors" && computerSelection === "Paper")
+               return "You Win! Scissors beats Paper";
+         }
+
+         let playerScore = 0;
+         let computerScore = 0;
+         let btns = document.querySelectorAll('.btn');
+
+         const divResults = document.querySelector('#results');
+         const resultP = document.createElement('p');
+
+         const divScore = document.querySelector('#score');
+         const scoreCount = document.createElement('p');
+         scoreCount.textContent = "Player Score: " + playerScore + " Computer Score: " + computerScore;
+         divScore.appendChild(scoreCount);
+         
+         //play round function when you click a button.
+         let playButton = btns.forEach((btn) => {
+            let playerSelection = btn.textContent;
+            btn.addEventListener('click', function(e){
+               let result = playRound(playerSelection, computerPlay());
+               resultCheck(result); //checks if there is a winner
+               if (playerScore === 5){
+                  resultP.textContent = "Wow, Congratulations! You won :)";
+                  playerScore = 0;
+                  computerScore = 0;
+               }
+               else if (computerScore === 5){
+                  resultP.textContent = "Sheesh, you took an L. Skull Emoji x7"
+                  playerScore = 0;
+                  computerScore = 0;
+               }
+               else
+                  resultP.textContent = result;
+               divResults.appendChild(resultP);
+               scoreCount.textContent = "Player Score: " + playerScore + " Computer Score: " + computerScore;
+               divScore.appendChild(scoreCount);
+            })
+         });
+
+         //Function that checks who the winner is each round
+         let resultCheck = (result) => {
+            if (result.charAt(4) === 'L') {
+               computerScore++;
+            }
+            else if (result.charAt(4) === 'W') {
+               playerScore++;
+            }
+         }
+
+      </script>
+   </body>
+</html>
